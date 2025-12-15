@@ -14,7 +14,7 @@ public interface ItemStackOps<A> {
         for (A item : iterable) {
             ItemKey header = getKeyFrom(item);
             A theItem = map.get(header);
-            A newItem = theItem != null ? theItem : copy(item);
+            A newItem = theItem != null ? copy(theItem) : copy(item);
             int theAmount = theItem != null ? getAmount(theItem) : 0;
             setAmount(newItem, getAmount(newItem) + theAmount);
             map.put(header, newItem);
