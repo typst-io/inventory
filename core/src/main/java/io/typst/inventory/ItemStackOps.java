@@ -50,5 +50,5 @@ public interface ItemStackOps<A> {
 
     A empty();
 
-    boolean isSimilar(A a, A b);
+    boolean isSimilar(@Nullable A a, @Nullable A b);
 }
