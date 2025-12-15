@@ -12,12 +12,14 @@ public interface ItemStackOps<A> {
     default Map<ItemKey, A> getHeaderMapFrom(Iterable<A> iterable) {
         Map<ItemKey, A> map = new HashMap<>();
         for (A item : iterable) {
-            ItemKey header = getKeyFrom(item);
-            A theItem = map.get(header);
-            A newItem = theItem != null ? copy(theItem) : copy(item);
+            if (isEmpty(item)) continue;
+            ItemKey key = getKeyFrom(item);
+            A theItem = map.get(key);
+            A newItem = theItem != null ? theItem : copy(item);
             int theAmount = theItem != null ? getAmount(theItem) : 0;
-            setAmount(newItem, getAmount(newItem) + theAmount);
-            map.put(header, newItem);
+            int newAmount = theAmount + getAmount(item);
+            setAmount(newItem, newAmount);
+            map.put(key, newItem);
         }
         return map;
     }
